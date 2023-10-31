@@ -1,0 +1,2 @@
+# crud-generator
+ generator
