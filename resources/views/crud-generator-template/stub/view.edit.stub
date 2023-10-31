@@ -1,0 +1,11 @@
+<div class="card">
+  <h5 class="card-header">Edit</h5>
+  <div class="card-body">
+  	<form class="" action="" method="POST">
+
+	  	{{ formContents }}
+
+	    <button type="button" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

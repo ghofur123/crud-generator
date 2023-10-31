@@ -1,0 +1,35 @@
+menggunakan services yang sudah di buat
+
+CrudGeneratorService.php
+LoginGeneratorSactumService.php
+RemoveGeneratorService.php
+
+pindahkan file tersebut ke app/console/commands
+lalu buka kernel.php yang ada di app/console/
+lalu tambahkan kode ini
+	protected $commands = [
+        // ...
+        \App\Console\Commands\CrudGeneratorService::class,
+        \App\Console\Commands\RemoveGeneratorService::class,
+        \App\Console\Commands\LoginGeneratorSactumService::class,
+    ];
+
+1#crud api
+crud-generator:create-api {name} {fields}
+2#login
+jalankan
+	composer require laravel/sanctum
+lalu
+	php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+lalu
+	php artisan migrate
+lalu
+	php artisan crud-generator:login
+lalu tambahkan kode ini di routes/api.php
+	use App\Http\Controllers\API\AuthController;
+	Route::post('/register', [AuthController::class, 'register']);
+	Route::post('/login', [AuthController::class, 'login']);
+	Route::group(['middleware' => ['auth:sanctum']], function () {
+	    Route::post('/logout', [AuthController::class, 'logout']);
+	});
+

@@ -1,0 +1,61 @@
+Baik, berikut adalah daftar fitur Laravel yang diurutkan berdasarkan tingkat kesulitan (dari yang paling mudah) untuk membantu Anda memahami beberapa fitur dasar dan lanjutan:
+
+Fitur-Fitur yang Paling Mudah (Pemula):
+
+Routing: Membuat dan mengelola rute dalam aplikasi Anda.
+Blade Templating Engine: Membuat tampilan menggunakan Blade.
+Artisan Console: Menggunakan perintah Artisan untuk tugas-tugas dasar.
+Validation: Melakukan validasi pada input pengguna.
+Migrations: Mengelola skema basis data dengan migrasi.
+File Storage: Menyimpan dan mengelola file dalam aplikasi.
+Authentication: Mengautentikasi pengguna.
+Authorization: Mengatur izin pengguna.
+Form Request Validation: Memvalidasi permintaan formulir.
+Model Factories: Membuat data uji dengan cepat.
+Localization and Internationalization: Mendukung banyak bahasa dan wilayah.
+Fitur-Fitur Menengah:
+
+Eloquent ORM: Menggunakan ORM untuk berinteraksi dengan basis data.
+Dependency Injection: Menggunakan dependensi dalam aplikasi.
+Middleware: Menerapkan middleware untuk permintaan HTTP.
+Task Scheduling: Menjadwalkan tugas secara berkala.
+Event and Listeners: Menangani peristiwa dan peringatan.
+Service Container: Mengikat kelas ke dalam aplikasi.
+API Resources: Membangun endpoint API RESTful.
+Blade Layouts and Sections: Mengatur tampilan dengan layout dan sections.
+Pagination: Memecah data menjadi beberapa halaman.
+Caching: Menggunakan sistem cache.
+Task Queue: Menjalankan tugas-tugas di latar belakang.
+Fitur-Fitur Lanjutan:
+
+Broadcasting and WebSockets: Membangun fitur waktu nyata.
+Socialite: Mengintegrasikan otentikasi dengan layanan pihak ketiga.
+Horizon: Antarmuka grafis untuk memantau antrian.
+Scout: Integrasi mesin pencari, seperti Algolia.
+Echo: Integrasi WebSockets.
+Policy: Mengatur kebijakan akses.
+API Authentication: Mengamankan API dengan otentikasi.
+Notifications: Mengirim pemberitahuan ke berbagai channel.
+Models with Relationships: Mendefinisikan relasi antara model.
+Repositories: Memisahkan logika basis data dari model.
+Middleware Groups: Mengelompokkan middleware.
+Commands and Handlers: Membangun perintah kustom.
+Fitur-Fitur Tingkat Lanjut (Pengembang Berpengalaman):
+
+Macros: Menambahkan metode ke kelas dasar Laravel.
+Custom Service Providers: Membangun penyedia layanan kustom.
+Custom Artisan Commands: Membuat perintah Artisan kustom.
+Eloquent Scopes: Membuat cakupan kueri kustom.
+Custom Middleware: Membangun middleware kustom.
+Custom Validation Rules: Membuat aturan validasi kustom.
+Database Transactions: Menggunakan transaksi basis data.
+WebSockets Broadcasting: Menggunakan WebSockets untuk broadcast.
+GraphQL: Membangun API dengan GraphQL.
+Model Observers: Menangani perubahan model.
+Testing: Menguji aplikasi dengan PHPUnit.
+API Versioning: Mengelola versi API.
+Eloquent Macros: Menambahkan metode Eloquent kustom.
+Dependency Injection: Menggunakan dependensi eksternal.
+Secure File Uploads: Mengunggah file dengan aman.
+Custom Routing Middleware: Membangun middleware rute kustom.
+Sesuai dengan tingkat pengalaman Anda, Anda dapat mulai mempelajari dan mengimplementasikan fitur-fitur ini dalam proyek-proyek Laravel Anda. Semakin banyak Anda menjelajahi dan berlatih dengan fitur-fitur ini, semakin ahli Anda akan menjadi dalam pengembangan aplikasi Laravel.

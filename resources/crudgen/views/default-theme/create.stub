@@ -1,0 +1,15 @@
+
+	@if($errors->any())
+		<div class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+				{{ $error }} <br>
+			@endforeach
+		</div>
+	@endif
+
+	{!! Form::open(['route' => 'DummyVariable.store', 'class' => 'form-create', 'method' => 'post']) !!}
+DummyFormCreate
+
+		{{ Form::submit('Create', array('class' => 'btn btn-primary', 'data-bs-dismiss' => 'modal')) }}
+
+	{{ Form::close() }}

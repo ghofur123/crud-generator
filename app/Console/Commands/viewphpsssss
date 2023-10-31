@@ -1,0 +1,43 @@
+<!--     private function generateViews($name, $fieldArray)
+    {
+        $viewDirectoryPath = resource_path("views/$name");
+        if (!File::exists($viewDirectoryPath)) {
+            File::makeDirectory($viewDirectoryPath, 0755, true);
+        }
+
+        $viewFiles = ['index', 'create', 'edit', 'show'];
+
+        foreach ($viewFiles as $viewFile) {
+            $formContents = $this->generateViewContent($name, $viewFile, $fieldArray);
+            $viewFilePath = "$viewDirectoryPath/$viewFile.blade.php";
+            file_put_contents($viewFilePath, $formContents);
+        }
+    }
+
+    private function generateViewContent($name, $viewFile, $fieldArray)
+    {
+        // Tentukan path ke file stub sesuai jenis tampilan
+        $stubFileName = in_array($viewFile, ['index', 'create', 'show', 'edit']) ? "view.$viewFile.stub" : 'view.stub';
+        $viewStubPath = base_path('resources/views/crud-generator-template/stub/' . $stubFileName);
+
+        if (file_exists($viewStubPath)) {
+            $viewContent = file_get_contents($viewStubPath);
+
+            $formContents = '';
+            foreach ($fieldArray as $field) {
+                $fieldName = str_replace(':', '', $field);
+                $formContents .= "<div class='mb-3'>\n";
+                $formContents .= "    <label for='id-$fieldName'>$fieldName</label>\n";
+                $formContents .= "    <input type='text' name='$fieldName' class='form-control' id='id-$fieldName' placeholder='$fieldName' required>\n";
+                $formContents .= "    <div class='invalid-feedback'>Please provide a valid $fieldName.</div>\n";
+                $formContents .= "</div>\n";
+            }
+
+            $viewContent = str_replace(['{{ url }}', '{{ formContents }}'], [$name, $formContents], $viewContent);
+
+            return $viewContent;
+        } else {
+            $this->error("Template view '$viewFile' not found.");
+            return '';
+        }
+    } -->
