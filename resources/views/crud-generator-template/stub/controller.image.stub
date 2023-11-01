@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+
+use App\Models\{{ class }};
+use App\Http\Requests\{{ class }}Request;
+use App\Http\Resources\{{ class }}Resource;
+use Illuminate\Support\Facades\URL;
+
+class {{ class }}Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        ${{ class }} = {{ class }}::paginate(15);
+        return {{ class }}Resource::collection(${{ class }});
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ class }}Request $request)
+    {
+    	// name form in blade = file
+    	$file = $request->file('file');
+    	$fileName = uniqid() . $file->getClientOriginalName();
+        ${{ class }} = new {{ class }};
+        {{ validateForm }}
+        ${{ class }}->name = $fileName;
+        ${{ class }}->ext_name = $file->getClientOriginalExtension();
+        ${{ class }}->type = $file->getMimeType();
+        ${{ class }}->size = $file->getSize();
+        ${{ class }}->path = $file->getRealPath();
+        ${{ class }}->url = URL::asset('uploads/');
+        ${{ class }}->save();
+		$file->move(public_path('uploads'), $fileName);
+        return response()->json(${{ class }}, 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        ${{ class }} = {{ class }}::findOrFail($id);
+        return new {{ class }}Resource(${{ class }});
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{ class }}Request $request, $id)
+    {
+        // Mendapatkan data yang akan diupdate
+        ${{ class }} = {{ class }}::find($id);
+
+        // Menghapus gambar lama dari folder
+        if (File::exists(public_path('public/uploads/' . ${{ class }}->name))) {
+            File::delete(public_path('public/uploads/' . ${{ class }}->name));
+        }
+
+        // Mengganti gambar lama dengan gambar yang baru
+        $file = $request->file('file');
+        $fileName = uniqid() . $file->getClientOriginalName();
+
+        ${{ class }}->name = $fileName;
+        ${{ class }}->ext_name = $file->getClientOriginalExtension();
+        ${{ class }}->type = $file->getMimeType();
+        ${{ class }}->size = $file->getSize();
+        ${{ class }}->path = $file->getRealPath();
+
+        $file->move(public_path('uploads'), $fileName);
+
+        ${{ class }}->save();
+
+        return response()->json(${{ class }}, 200);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        ${{ class }} = {{ class }}::findOrFail($id);
+        ${{ class }}->delete();
+
+        return response()->json(null, 204);
+    }
+}

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LembagasController;
 use App\Http\Controllers\API\SiswaController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ImagesController;
+use App\Http\Controllers\API\SiswaExcelController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +25,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::resource('lembaga', LembagasController::class);
 Route::apiResource("siswa", SiswaController::class);
+Route::apiResource("images", ImagesController::class);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/user-update/{id}', [AuthController::class, 'update']);
 });
+
+
+Route::post('/import-siswa', [SiswaExcelController::class, 'import']);
 

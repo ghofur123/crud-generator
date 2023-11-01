@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Imports;
+
+use App\Models\{{ class }}Excel;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
+
+class {{ class }} implements ToModel, WithStartRow
+{
+    public function startRow(): int
+    {
+        return {{ startRow }};
+    }
+    /**
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function model(array $row)
+    {
+        return new {{ class }}([
+            {{ rules }}
+        ]);
+    }
+}

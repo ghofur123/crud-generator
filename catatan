@@ -16,6 +16,10 @@ lalu tambahkan kode ini
 
 1#crud api
 crud-generator:create-api {name} {fields}
+method get - index
+method post - store
+method put - update
+method delete - destroy
 2#login
 jalankan
 	composer require laravel/sanctum
@@ -31,5 +35,6 @@ lalu tambahkan kode ini di routes/api.php
 	Route::post('/login', [AuthController::class, 'login']);
 	Route::group(['middleware' => ['auth:sanctum']], function () {
 	    Route::post('/logout', [AuthController::class, 'logout']);
+	    Route::put('/user-update/{id}', [AuthController::class, 'update']);
 	});
 

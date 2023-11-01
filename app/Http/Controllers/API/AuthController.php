@@ -24,7 +24,19 @@ class AuthController extends Controller
         return response()
             ->json(['data' => $user,'access_token' => $token, 'token_type' => 'Bearer', ]);
     }
+    public function update(AuthControllerRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()
+            ->json(['data' => $user,'access_token' => $token, 'token_type' => 'Bearer', ]);
+    }
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password')))

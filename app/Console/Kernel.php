@@ -30,9 +30,9 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
     protected $commands = [
-        // ...
         \App\Console\Commands\CrudGeneratorService::class,
         \App\Console\Commands\RemoveGeneratorService::class,
         \App\Console\Commands\LoginGeneratorSactumService::class,
+        \App\Console\Commands\CrudGeneratorImageService::class,
     ];
 }

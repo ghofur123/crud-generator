@@ -50,6 +50,12 @@ class LoginGeneratorSactumService extends Command
 
     private function generateRequestContent($controllerName, $fieldArray)
     {
+        $requestPath = app_path("Http/Requests/{$controllerName}Request.php");
+
+        if (file_exists($requestPath)) {
+            $this->error("Request $controllerName sudah ada!");
+            return;
+        }
         $rules = [
             "'name' => 'required|string|max:255',",
             "'email' => 'required|string|email|max:255|unique:users',",
