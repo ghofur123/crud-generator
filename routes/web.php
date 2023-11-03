@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Pages\LembagaController;
+
+use App\Http\Controllers\FirebaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,14 @@ use App\Http\Controllers\Pages\LembagaController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('/coba', CobaController::class);
 
 Route::resource('/', DashboardController::class);
 Route::resource('/lembaga', LembagaController::class);
+
+
+Route::resource('/firebase', FirebaseController::class);
+
+
+ // Route::post('/get-firebase-data', [FirebaseController::class, 'register']);
+// Route::get('get-firebase-data', [FirebaseController::class, 'index'])->name('firebase.index');

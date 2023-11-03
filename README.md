@@ -1,10 +1,15 @@
 menggunakan services yang sudah di buat
-1. crud
-2. login sactum
-3. upload image/file
-4. import and export excel
+1. crud work
+2. login sactum word
+3. upload image/file work
+4. import and export excel maatwebsite/excel work
+5. dompof work
+6. livewire -masih not work XXX ini tidak bisa error
+7. firebase
 
+CrudGeneratorImageService.php
 CrudGeneratorService.php
+ExcelGeneratorService.php
 LoginGeneratorSactumService.php
 RemoveGeneratorService.php
 
@@ -65,6 +70,10 @@ lalu tambahkan kode ini di routes/api.php
 php artisan crud-generator:image {name} {fields}
 ex : php artisan crud-generator:image gambar "profile_id"
 4. import and export excel
+
+	menggunakan composer.json
+	"maatwebsite/excel": "^3.1"
+	atau
 	composer require maatwebsite/excel
 
 	tambahkan config/app
@@ -81,4 +90,8 @@ ex : php artisan crud-generator:image gambar "profile_id"
 
 	jalankan
 	php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
+
+5. export ke pdf menggunakan dompdf
+	crud-generator:excel {name} {fields}
+	ex: php artisan crud-generator:excel siswa "nama,nisn,alamat"
 

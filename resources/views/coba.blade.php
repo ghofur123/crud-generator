@@ -1,0 +1,1 @@
+@livewire('siswa-livewire-controller')

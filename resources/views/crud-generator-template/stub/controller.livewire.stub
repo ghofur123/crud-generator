@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Model\{{ class }};
+
+class {{ class }}LivewireController extends Component
+{
+    public ${{ class_lower }};
+    {{ public_string }}
+    public $updateMode = false;
+
+    public function render()
+    {
+        $this->{{ class_lower }} = {{ class }}::all();
+        return view('livewire.{{ class_lower }}.{{ class_lower }}');
+    }
+
+    public function create()
+    {
+        {{ class }}::create([
+            {{ rules_create }}
+        ]);
+
+        $this->resetFields();
+    }
+
+    public function edit($id)
+    {
+        ${{ class_lower }} = {{ class }}::find($id);
+        {{ rules_edit }}
+        $this->updateMode = true;
+    }
+
+    public function update($id)
+    {
+        ${{ class_lower }} = ${{ class }}::find($id);
+        ${{ class_lower }}->update([
+            {{ rules_create }}
+        ]);
+
+        $this->resetFields();
+    }
+
+    public function delete($id)
+    {
+        ${{ class }}::find($id)->delete();
+    }
+
+    private function resetFields()
+    {
+        $this->nama = '';
+        $this->nisn = '';
+        $this->alamat = '';
+        $this->updateMode = false;
+    }
+}

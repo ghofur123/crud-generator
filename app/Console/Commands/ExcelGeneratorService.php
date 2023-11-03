@@ -57,10 +57,15 @@ class ExcelGeneratorService extends Command
             mkdir($apiFolderPath, 0755, true);
         }
 
-        $uploadsFolderPath = app_path('Imports');
-        if (!is_dir($uploadsFolderPath)) {
+        $ImportsFolderPath = app_path('Imports');
+        if (!is_dir($ImportsFolderPath)) {
             $this->info("Folder Imports berhasil dibuat.");
-            mkdir($uploadsFolderPath, 0755, true);
+            mkdir($ImportsFolderPath, 0755, true);
+        }
+        $ExportsFolderPath = app_path('Exports');
+        if (!is_dir($ExportsFolderPath)) {
+            $this->info("Folder Exports berhasil dibuat.");
+            mkdir($ExportsFolderPath, 0755, true);
         }
         $excelFolderPath = public_path('excel');
         if (!is_dir($excelFolderPath)) {
@@ -71,6 +76,7 @@ class ExcelGeneratorService extends Command
         $this->generateModel($ucName, $lowerName, $controllerNamespace, $fieldArray);
         $this->generateImports($ucName, $lowerName, $fieldArray, $startRow);
         $this->generateController($ucName);
+        $this->generateExports($ucName);
     }
 
     private function generateModel($ucName, $lowerName, $controllerNamespace, $fieldArray)
@@ -108,7 +114,7 @@ class ExcelGeneratorService extends Command
 
     private function generateImports($ucName, $lowerName, $fieldArray, $startRow)
     {
-        $modelPath = app_path("Imports/{$ucName}.php");
+        $modelPath = app_path("Imports/{$ucName}Import.php");
 
         if (file_exists($modelPath)) {
             $this->error("Imports $ucName sudah ada!");
@@ -119,7 +125,7 @@ class ExcelGeneratorService extends Command
 
         file_put_contents($modelPath, $modelContent);
 
-        $this->info("Imports {$ucName} berhasil dibuat.");
+        $this->info("Imports {$ucName}Import berhasil dibuat.");
     }
     private function generateImportsContent($ucName, $fieldArray, $startRow)
     {
@@ -135,6 +141,29 @@ class ExcelGeneratorService extends Command
         $modelStubPath = base_path('resources/views/crud-generator-template/stub/excel.import.stub');
         $modelContent = file_get_contents($modelStubPath);
         $modelContent = str_replace(['{{ class }}', '{{ rules }}', '{{ startRow }}'], [$ucName, $rulesString, $startRow], $modelContent);
+
+        return $modelContent;
+    }
+    private function generateExports($ucName)
+    {
+        $modelPath = app_path("Exports/{$ucName}Export.php");
+
+        if (file_exists($modelPath)) {
+            $this->error("Exports {$ucName}Exports sudah ada!");
+            return;
+        }
+
+        $modelContent = $this->generateExportsContent($ucName);
+
+        file_put_contents($modelPath, $modelContent);
+
+        $this->info("Exports {$ucName}Exports berhasil dibuat.");
+    }
+    private function generateExportsContent($ucName)
+    {
+        $modelStubPath = base_path('resources/views/crud-generator-template/stub/excel.export.stub');
+        $modelContent = file_get_contents($modelStubPath);
+        $modelContent = str_replace(['{{ class }}'], [$ucName], $modelContent);
 
         return $modelContent;
     }

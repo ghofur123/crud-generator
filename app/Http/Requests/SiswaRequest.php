@@ -27,9 +27,9 @@ class SiswaRequest extends FormRequest
     {
         return
         [
-			'nama' => 'required',
-		'nisn' => 'required',
-		'alamat' => 'required',
+            'nama' => 'required',
+            'nisn' => 'required',
+            'alamat' => 'required',
         ];
     }
 

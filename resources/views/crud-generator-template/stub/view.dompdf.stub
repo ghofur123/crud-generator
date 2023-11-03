@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Data {{ class_lower }}</title>
+</head>
+<body>
+    <h1>Data {{ class_lower }}</h1>
+    <table>
+        <thead>
+            <tr>
+                {{ table_header }}
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (${{ class_lower }}s as ${{ class_lower }})
+                <tr>
+                    {{ table_data }}
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div>
+    {{ form_input }}
+
+    @if ($updateMode)
+        <button wire:click="update({{ ${{ class_lower }}Id }})">Simpan Perubahan</button>
+    @else
+        <button wire:click="create">Tambah {{ class }}</button>
+    @endif
+
+    <table>
+        @foreach (${{ class_lower }}s as ${{ class_lower }})
+            <tr>
+                {{ table_data }}
+                <td>
+                    <button wire:click="edit({{ ${{ class_lower }}->id }})">Edit</button>
+                    <button wire:click="delete({{ ${{ class_lower }}->id }})">Hapus</button>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+</div>

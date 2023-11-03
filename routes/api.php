@@ -7,6 +7,9 @@ use App\Http\Controllers\API\SiswaController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ImagesController;
 use App\Http\Controllers\API\SiswaExcelController;
+use App\Http\Controllers\API\SiswaPdfController;
+use App\Http\Controllers\API\FirebaseController;
+
 
 
 /*
@@ -36,4 +39,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 Route::post('/import-siswa', [SiswaExcelController::class, 'import']);
+Route::get('/export-siswa', [SiswaExcelController::class, 'export']);
+Route::get('/export-siswa', [SiswaExcelController::class, 'export']);
+
+Route::get('/pdf-siswa', [SiswaPdfController::class, 'generateSiswaPdf']);
+
+Route::apiResource('/firebase', FirebaseController::class);
+
 

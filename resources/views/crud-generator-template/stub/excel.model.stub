@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class {{ class }}Excel extends Model
 {
     use HasFactory;
-    protected $table = '{{ table }}';
+    protected $table = '{{ table }}s';
     protected $fillable = [
         {{ rules }}
     ];
