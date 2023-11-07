@@ -11,11 +11,11 @@ use Kreait\Firebase\Auth;
 use Firebase\Auth\Token\Exception\InvalidToken;
 use Kreait\Firebase\Exception\Auth\RevokedIdToken;
 
-use App\Http\Requests\{{ class }}FirebaseRequest;
+use App\Http\Requests\ProductFirebaseRequest;
 use App\Helpers\PaginationHelper;
 use App\Factories\FirebaseFactory;
 
-class {{ class }}FirebaseController extends Controller
+class ProductFirebaseController extends Controller
 {
     public function __construct(FirebaseFactory $firebaseFactory){
         $this->firebaseFactory = $firebaseFactory;
@@ -29,7 +29,7 @@ class {{ class }}FirebaseController extends Controller
         $page = $request->input('page', 1);
         $offset = ($page - 1) * $pageSize;
 
-        $ref = $this->database->getReference('{{ class_lower }}')->orderByKey()->getValue(); // Hapus limitToFirst
+        $ref = $this->database->getReference('product')->orderByKey()->getValue(); // Hapus limitToFirst
 
         $totalData = count($ref);
 
@@ -47,15 +47,19 @@ class {{ class }}FirebaseController extends Controller
     }
     public function show($id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)->getValue();
+        $ref = $this->database->getReference('product/'.$id)->getValue();
 
         return response()->json($ref);
     }
-    public function store({{ class }}FirebaseRequest $request)
+    public function store(ProductFirebaseRequest $request)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.uniqid())
+        $ref = $this->database->getReference('product/'.uniqid())
         ->set([
-            {{ rules_input }}
+            'titile' => $request->input('titile'),
+		'kategori' => $request->input('kategori'),
+		'description' => $request->input('description'),
+		'image' => $request->input('image'),
+		'stok' => $request->input('stok'),
         ]);
 
         return response()->json([
@@ -63,11 +67,15 @@ class {{ class }}FirebaseController extends Controller
             "message" => 'Data berhasil dimasukkan ke dalam database'
         ], 201);
     }
-    public function update({{ class }}FirebaseRequest $request, $id)
+    public function update(ProductFirebaseRequest $request, $id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)
+        $ref = $this->database->getReference('product/'.$id)
         ->update([
-            {{ rules_input }}
+            'titile' => $request->input('titile'),
+		'kategori' => $request->input('kategori'),
+		'description' => $request->input('description'),
+		'image' => $request->input('image'),
+		'stok' => $request->input('stok'),
         ]);
 
         return response()->json([
@@ -77,7 +85,7 @@ class {{ class }}FirebaseController extends Controller
     }
     public function destroy($id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)->remove();
+        $ref = $this->database->getReference('product/'.$id)->remove();
         return response()->json([
             "status" => true,
             "message" => 'Data berhasil di hapus dari database'

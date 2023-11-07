@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Factories;
+
+use Kreait\Firebase\Factory;
+
+class FirebaseFactory
+{
+    public function create()
+    {
+        return (new Factory)
+            ->withServiceAccount('firebase-credentials.json')
+            ->withDatabaseUri('https://companyprofile-fb284-default-rtdb.firebaseio.com/');
+    }
+}

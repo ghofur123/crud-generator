@@ -11,25 +11,29 @@ use Kreait\Firebase\Auth;
 use Firebase\Auth\Token\Exception\InvalidToken;
 use Kreait\Firebase\Exception\Auth\RevokedIdToken;
 
-use App\Http\Requests\{{ class }}FirebaseRequest;
+use App\Http\Requests\ProfileFirebaseRequest;
 use App\Helpers\PaginationHelper;
-use App\Factories\FirebaseFactory;
 
-class {{ class }}FirebaseController extends Controller
+
+class ProfileFirebaseController extends Controller
 {
-    public function __construct(FirebaseFactory $firebaseFactory){
-        $this->firebaseFactory = $firebaseFactory;
-        $factory = $this->firebaseFactory->create();
+    public function __construct(){
+        $factory = (new Factory)
+        ->withServiceAccount('firebase-credentials.json')
+        ->withDatabaseUri('https://companyprofile-fb284-default-rtdb.firebaseio.com/');
+
         $this->auth = $factory->createAuth();
         $this->database = $factory->createDatabase();
     }
+
+
     public function index(Request $request)
     {
         $pageSize = 10;
-        $page = $request->input('page', 1);
+        $page = $request->input('page', 1);;
         $offset = ($page - 1) * $pageSize;
 
-        $ref = $this->database->getReference('{{ class_lower }}')->orderByKey()->getValue(); // Hapus limitToFirst
+        $ref = $this->database->getReference('profile')->orderByKey()->getValue(); // Hapus limitToFirst
 
         $totalData = count($ref);
 
@@ -45,17 +49,20 @@ class {{ class }}FirebaseController extends Controller
 
         return response()->json($response);
     }
+
+
+
     public function show($id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)->getValue();
-
+        $ref = $this->database->getReference('profile/'.$id)->getValue();
         return response()->json($ref);
     }
-    public function store({{ class }}FirebaseRequest $request)
+    public function store(ProfileFirebaseRequest $request)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.uniqid())
+        $ref = $this->database->getReference('profile/'.uniqid())
         ->set([
-            {{ rules_input }}
+            'name' => $request->input('name'),
+		'alamat' => $request->input('alamat'),
         ]);
 
         return response()->json([
@@ -63,11 +70,12 @@ class {{ class }}FirebaseController extends Controller
             "message" => 'Data berhasil dimasukkan ke dalam database'
         ], 201);
     }
-    public function update({{ class }}FirebaseRequest $request, $id)
+    public function update(ProfileFirebaseRequest $request, $id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)
+        $ref = $this->database->getReference('profile/'.$id)
         ->update([
-            {{ rules_input }}
+            'name' => $request->input('name'),
+		'alamat' => $request->input('alamat'),
         ]);
 
         return response()->json([
@@ -77,7 +85,7 @@ class {{ class }}FirebaseController extends Controller
     }
     public function destroy($id)
     {
-        $ref = $this->database->getReference('{{ class_lower }}/'.$id)->remove();
+        $ref = $this->database->getReference('profile/'.$id)->remove();
         return response()->json([
             "status" => true,
             "message" => 'Data berhasil di hapus dari database'
