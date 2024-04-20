@@ -22,6 +22,7 @@ class LoginGeneratorSactumService extends Command
 
         $this->generateController($controllerName);
         $this->generateRequestFile($controllerName, $fieldArray);
+        $this->generateModel();
     }
 
     private function generateController($controllerName)
@@ -67,6 +68,27 @@ class LoginGeneratorSactumService extends Command
         $requestContent = str_replace('{{ class }}', $controllerName, $requestContent);
         $requestContent = str_replace('{{ rules }}', $rulesContent, $requestContent);
         $this->info("Request $controllerName berhasil dibuat.");
+        return $requestContent;
+    }
+    private function generateModel()
+    {
+        $requestContent = $this->generateModelContent();
+        $requestFilePath = app_path("Models/UserSactum.php");
+        file_put_contents($requestFilePath, $requestContent);
+
+        $modeltPath = app_path("Models");
+        if (file_exists($modeltPath)) {
+            $this->error("Folder Models sudah ada!");
+            return;
+        }
+    }
+    private function generateModelContent()
+    {
+
+        $requestStubPath = base_path('resources/views/crud-generator-template/stub/model.sactum.stub');
+        $requestContent = file_get_contents($requestStubPath);
+
+        $this->info("Model UserSactum berhasil dibuat.");
         return $requestContent;
     }
 }

@@ -10,17 +10,16 @@ use Kreait\Firebase\Auth;
 use Kreait\Firebase\ServiceAccount;
 use Firebase\Auth\Token\Exception\InvalidToken;
 use Kreait\Firebase\Exception\Auth\RevokedIdToken;
-use Illuminate\Support\Collection;
+use App\Factories\FirebaseFactory;
 
 class FirebaseFileController extends Controller
 {
     protected $auth;
     protected $bucket;
 
-    public function __construct(){
-        $factory = (new Factory)
-            ->withServiceAccount('firebase-credentials.json')
-            ->withDatabaseUri('https://companyprofile-fb284-default-rtdb.firebaseio.com/');
+    public function __construct(FirebaseFactory $firebaseFactory){
+        $this->firebaseFactory = $firebaseFactory;
+        $factory = $this->firebaseFactory->create();
 
         $this->auth = $factory->createAuth();
         $storage = $factory->createStorage();
@@ -42,22 +41,6 @@ class FirebaseFileController extends Controller
         return response()->json(['image_url' => $imageUrls, 'image_name' => $imageNames],200);
 
     }
-    private function generatePaginationLinks($currentPage, $pageSize, $totalImages)
-    {
-        $lastPage = ceil($totalImages / $pageSize);
-
-        $links = [
-            'first' => url()->current() . '?page=1',
-            'last' => url()->current() . '?page=' . $lastPage,
-            'prev' => $currentPage > 1 ? url()->current() . '?page=' . ($currentPage - 1) : null,
-            'next' => $currentPage < $lastPage ? url()->current() . '?page=' . ($currentPage + 1) : null,
-        ];
-
-        return $links;
-    }
-
-
-
 
     public function store(Request $request)
     {
@@ -76,8 +59,6 @@ class FirebaseFileController extends Controller
                 );
 
                 $url = $object->signedUrl(new \DateTime('tomorrow'));
-
-                // Sekarang Anda dapat menyimpan URL ke database atau melakukan apa yang Anda inginkan dengan data ini
                 return response()->json(['url' => $url]);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Gagal mengunggah gambar: ' . $e->getMessage()], 500);

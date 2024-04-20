@@ -17,7 +17,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $Siswa = Siswa::paginate(15);
+        $Siswa = Siswa::latest()->paginate(15);
         return SiswaResource::collection($Siswa);
     }
 
@@ -69,7 +69,6 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**

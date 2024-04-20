@@ -34,6 +34,14 @@ class CrudGeneratorService extends Command
         if (!is_dir($apiFolderPath)) {
             mkdir($apiFolderPath, 0755, true);
         }
+        $resourcesFolderPath = app_path('Http/Resources');
+        if (!is_dir($resourcesFolderPath)) {
+            mkdir($resourcesFolderPath, 0755, true);
+        }
+        $requestsFolderPath = app_path('Http/Requests');
+        if (!is_dir($requestsFolderPath)) {
+            mkdir($requestsFolderPath, 0755, true);
+        }
         $generateStoreUpdate = $this->generateStoreUpdate($ucName, $fieldArray);
 
         $this->generateModel($ucName, $controllerNamespace);
